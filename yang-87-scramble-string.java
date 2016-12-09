@@ -1,8 +1,9 @@
 // Passed LC.  Complexity O(2^N).
 public class Solution {
     public boolean isScramble(String s1, String s2) {
-        if (s1 == null) {
-            return s2 == null;
+        // ***Check both for null***.
+        if (s1 == null || s2 == null) {
+            return s1 == s2;
         }
         if (s1.equals(s2)) {
             return true;
@@ -10,10 +11,9 @@ public class Solution {
             return false;
         }
         int[] letterBuckets = new int[26];
+        // ***Use single for loop***.
         for (int i=0; i<s1.length(); ++i) {
             letterBuckets[s1.charAt(i)-'a']++;
-        }
-        for (int i=0; i<s2.length(); ++i) {
             letterBuckets[s2.charAt(i)-'a']--;
         }
         for (int count : letterBuckets) {
