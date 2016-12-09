@@ -1,3 +1,7 @@
+// Time spent: 1.5 hours on the algorithm.
+// Bugs: none.
+// There's a much easier solution.
+// Spent a few hours on the algorithm. algorithm was initially wrong. this solution is too complex. there's a much easier one.
 public class Solution {
     public int numDistinct(String s, String t) {
         if (s == null || s.isEmpty() || s.length() < t.length()) {
