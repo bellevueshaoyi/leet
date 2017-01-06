@@ -1,3 +1,6 @@
+// Took me about 42 minutes. Made several silly mistakes: 
+// 1) substring(3) means it starts at index 3 not ends at 3, 
+// 2) instead of numPrefixMatched i used boolean prefixMatched, and when inputs are "["dog", "cat", "catdog"]", it failed.
 /*
 Given a list of words (without duplicates), please write a program that returns all concatenated words in the given list of words.
 
