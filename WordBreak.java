@@ -49,3 +49,31 @@ public class Solution {
         return false;
     }
 }
+
+// BFS:
+public class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        if (s == null || s.isEmpty()) {
+            return true;
+        }
+        Queue<Integer> queue = new LinkedList<Integer>();
+        Boolean[] visited = new Boolean[s.length()];
+        Arrays.fill(visited, false);
+        queue.offer(0);
+        while (!queue.isEmpty()) {
+            int start = queue.poll();
+            if (!visited[start]) {
+                for (int i = start; i<s.length(); ++i) {
+                    if (wordDict.contains(s.substring(start, i+1))) {
+                        if (i == s.length()) {
+                            return true;
+                        }
+                        queue.offer(i+1);
+                    }
+                }
+                visited[start] = true;
+            }
+        }
+        return false;
+    }
+}
