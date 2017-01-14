@@ -57,3 +57,42 @@ public class Solution {
         return max;
     }
 }
+
+// Solution 3.
+public class Solution {
+    public int longestValidParentheses(String s) {
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
+        int max = 0;
+        for (int i=0, start=0, v = 0; i<s.length(); ++i) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                ++v;
+            } else {
+                --v;
+            }
+            if (v == 0) {
+                max = Math.max(max, i-start+1);
+            } else if (v < 0) {
+                v= 0;
+                start =i+1;
+            }
+        }
+        for (int i=s.length()-1, start=s.length()-1, v = 0; i>=0; --i) {
+            char c = s.charAt(i);
+            if (c == ')') {
+                ++v;
+            } else {
+                --v;
+            }
+            if (v == 0) {
+                max = Math.max(max, start-i+1);
+            } else if (v < 0) {
+                v= 0;
+                start =i-1;
+            }
+        }
+        return max;
+    }
+}
