@@ -57,3 +57,63 @@ public class Solution {
         return (right-left) * (bottom-top);
     }
 }
+
+// Solution 3. Binary search.  O(NlgN).  Key is how to find the index of the element that is first of a sequence in binary search.
+public class Solution {
+    int top, bottom, left, right;
+    public int minArea(char[][] image, int x, int y) {
+        if (image == null || image.length == 0 || image[0].length == 0 || x >= image.length || y >= image[0].length
+            || x < 0 || y < 0 || image[x][y] != '1') {
+            return 0;
+        }
+        top = getRowOrColBoundary(image, 0, x, true, true);
+        bottom = getRowOrColBoundary(image, x, image.length, false, true);
+        left = getRowOrColBoundary(image, 0, y, true, false);
+        right = getRowOrColBoundary(image, y, image[0].length, false, false);
+        return (bottom-top) * (right-left);
+    }
+    private int getRowOrColBoundary(char[][] image, int upBound, int lowBound, boolean findLowerBound, boolean scanRow) {
+        int start = upBound, end = lowBound;
+        int mid;
+        while(start <= end) {
+            mid = start + (end-start)/2;
+            if (hasBlackPixel(image, mid, scanRow)) {
+                if (findLowerBound) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1; 
+                }
+            } else {
+                if (findLowerBound) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            }
+        }
+        return start;
+    }
+    private boolean hasBlackPixel(char[][] image, int index, boolean scanRow) {
+        if (scanRow) {
+            if (index >= image.length) {
+                return false;
+            }
+            for (int i=0; i<image[index].length; ++i) {
+                if (image[index][i] == '1') {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            if (index >= image[0].length) {
+                return false;
+            }
+            for (int i=0; i<image.length; ++i) {
+                if (image[i][index] == '1') {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}
