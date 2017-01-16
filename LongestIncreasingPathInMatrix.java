@@ -33,7 +33,9 @@ public class Solution {
             int x = row+dir[0], y = col+dir[1];
             if (x >=0 && x<matrix.length && y>=0 && y<matrix[0].length
                 && matrix[x][y] > matrix[row][col]) {
-                memory[row][col] = Math.max(memory[row][col], find(matrix, row, col, memory));
+                // !!! Bug #2: I wrote find(matrix, row, col, memory).  It should be find(matrix, x, y, memory).
+                // Should have a more meaningful name.
+                memory[row][col] = Math.max(memory[row][col], find(matrix, x, y, memory));
             }
         }
         return ++memory[row][col];
