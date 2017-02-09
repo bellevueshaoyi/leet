@@ -1,6 +1,6 @@
 //https://leetcode.com/problems/wiggle-subsequence/.
 // https://leetcode.com/articles/wiggle-subsequence/
-
+// !!!!! there're 3 cases: up, down, or even!!!
 // 1. DP, O(N), O(1) space.
 
 public class Solution {
@@ -40,6 +40,28 @@ public class Solution {
             if ((diff > 0 && prediff <= 0) || (diff < 0 && prediff >= 0)) {
                 ++len;
                 prediff = diff;
+            }
+        }
+        return len;
+    }
+}
+
+// 3. Greedy, without using prediff. Code is more complex.
+
+public class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if (nums.length<=1) {
+            return nums.length;
+        }
+        int len = 1;
+        // There are three cases!!!!!!
+        // 0: equal. 1: up. 2: down.
+        int up = 0;
+        for (int i=1; i<nums.length; ++i) {
+            if ((nums[i] > nums[i-1] && up!=1 /* not up */) || 
+                (nums[i] < nums[i-1] && up!=2 /* not down */)) {
+                ++len;
+                up = nums[i] > nums[i-1] ? 1 : 2;
             }
         }
         return len;
